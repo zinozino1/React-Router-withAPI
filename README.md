@@ -1,1 +1,1 @@
-# Simple NEWS viewier with newsAPI
+# Simple NEWS viewer with newsAPI
