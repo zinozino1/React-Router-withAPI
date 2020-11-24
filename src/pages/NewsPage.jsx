@@ -3,7 +3,8 @@ import Category from "../components/Category";
 import Newslist from "../components/Newslist";
 
 const NewsPage = ({ match }) => {
-    const category = match.params.category || "all"; // state를 사용하지 않고 params 이용
+    console.log("news page rerender");
+    const category = match.params.category || "all";
 
     return (
         <>

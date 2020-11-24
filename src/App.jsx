@@ -5,10 +5,10 @@ import { Route } from "react-router-dom";
 import NewsPage from "../src/pages/NewsPage";
 
 const App = () => {
+    console.log("app리렌더");
     return (
         <div className="App">
             <Route path="/:category?" component={NewsPage}></Route>
-            {/* {/:category? ==> category값이 선택적이란 의미. 있을수도 없을 수도 있다.} */}
         </div>
     );
 };

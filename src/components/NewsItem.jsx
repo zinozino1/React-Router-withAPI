@@ -1,56 +1,48 @@
 import React from "react";
 import styled from "styled-components";
 
-const NewsItemBlock = styled.div`
+const NewsItemContainer = styled.div`
+    border: 1px solid blue;
     display: flex;
-    border: 1px solid black;
+    margin: 20px;
     .thumbnail {
-        margin-right: 1rem;
+        margin: 5px;
         img {
-            display: block;
-            width: 160px;
+            width: 100px;
             height: 100px;
-            object-fit: cover;
         }
     }
-    .contents {
-        h2 {
-            margin: 0;
-            a {
-                color: black;
+    .content {
+        margin: 5px;
+        a {
+            font-size: 24px;
+            color: black;
+            font-weight: 600;
+            text-decoration: none;
+            &:hover {
+                color: blue;
             }
         }
-        p {
-            margin: 0;
-            line-height: 1.5;
-            margin-top: 0.5rem;
-            white-space: normal;
-        }
-    }
-    & + & {
-        margin-top: 3rem;
     }
 `;
 
-const NewsItem = ({ article }) => {
-    const { title, description, url, urlToImage } = article;
-
+const NewsItem = ({ data }) => {
+    const { title, description, url, urlToImage } = data;
+    console.log("news Item rerender");
     return (
-        <NewsItemBlock>
+        <NewsItemContainer>
             <div className="thumbnail">
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                    <img src={urlToImage} alt="thumbnail" />
+                <a href={url} target="_blank">
+                    <img src={urlToImage} alt="image" />
                 </a>
             </div>
-            <div className="contents">
-                <h2>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                        {title}
-                    </a>
-                </h2>
+            <div className="content">
+                <a href={url} target="_blank">
+                    {title}
+                </a>
                 <p>{description}</p>
             </div>
-        </NewsItemBlock>
+        </NewsItemContainer>
     );
 };
 

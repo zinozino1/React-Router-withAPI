@@ -4,22 +4,15 @@ import NewsItem from "./NewsItem";
 import axios from "axios";
 import usePromise from "../lib/usePromise";
 
-const NewsListBlock = styled.div`
-    box-sizing: border-box;
-    padding-bottom: 3rem;
-    width: 768px;
-    margin: 0 auto;
-    margin-top: 2rem;
-    @media screen and (max-width: 768px) {
-        width: 100%;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+const LoadingContainer = styled.div`
+    font-size: 20px;
+    margin: 20px;
+    text-align: center;
 `;
 
 const Newslist = ({ category }) => {
-    console.log(1);
-    const [loading, response, error] = usePromise(() => {
+    console.log("news List rerender");
+    const [resolved, loading, error] = usePromise(() => {
         return axios.get(
             category === "all"
                 ? `http://newsapi.org/v2/top-headlines?country=kr&apiKey=0e1636874c194cf7bed28aef2858db55`
@@ -27,30 +20,20 @@ const Newslist = ({ category }) => {
         );
     }, [category]);
 
-    console.log(3);
-    console.log(loading);
-    console.log(response);
-    if (loading) {
-        return <NewsListBlock>...loading 중</NewsListBlock>;
-    }
+    if (loading) return <LoadingContainer>fetching...</LoadingContainer>;
 
-    if (!response) {
-        // 아주아주 잠깐동안 null을 렌더링한다.
-        // NewsList가 마운트되자마자 실행되는 것. 마운트가 끝나면
-        // useEffect가 실행되어 article을 받아오게되고 그 때부터 map을 사용할 수 있게 된다.
-        return null;
-    }
-    if (error) {
-        return <div>error 발생</div>;
-    }
+    if (!resolved) return null;
 
-    console.log(4);
+    const { articles } = resolved.data;
+    console.log(articles);
+    console.log(category);
+
     return (
-        <NewsListBlock>
-            {response.data.articles.map((v, i) => {
-                return <NewsItem article={v} key={v.url}></NewsItem>;
+        <div>
+            {articles.map((v, i) => {
+                return <NewsItem key={v.url} data={v}></NewsItem>;
             })}
-        </NewsListBlock>
+        </div>
     );
 };
 
