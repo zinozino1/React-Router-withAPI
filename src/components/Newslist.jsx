@@ -25,8 +25,6 @@ const Newslist = ({ category }) => {
     if (!resolved) return null;
 
     const { articles } = resolved.data;
-    console.log(articles);
-    console.log(category);
 
     return (
         <div>
